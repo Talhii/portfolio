@@ -2,26 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
+    --background: #ffffff;
+    --foreground: #0b0b0f;
+    --card: rgba(0, 0, 0, 0.03);
+    --card-hover: rgba(0, 0, 0, 0.08);
+    --card-border: rgba(0, 0, 0, 0.05);
+  }
+
+  .dark {
+    --background: #0b0b0f;
     --foreground: #ededed;
+    --card: rgba(255, 255, 255, 0.03);
+    --card-hover: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.05);
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .glass-card {
+    @apply bg-card backdrop-blur-md border border-card-border shadow-[0_4px_30px_#0000001a];
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-tertiary to-secondary animate-shimmer bg-[length:200%_auto];
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 rounded-full bg-gradient-to-r from-primary to-tertiary hover:opacity-90 text-white font-medium transition-all shadow-[0_0_20px_#8b5cf680] hover:shadow-[0_0_30px_#ec489999] flex items-center gap-2 justify-center;
+  }
+
+  .shiny-btn {
+    @apply relative overflow-hidden;
+  }
+
+  .shiny-btn::before {
+    content: '';
+    @apply absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] transition-all duration-700;
+  }
+
+  .shiny-btn:hover::before {
+    @apply left-[100%];
   }
 }
